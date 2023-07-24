@@ -1,6 +1,8 @@
 package net.glad0s.baubledetector;
 
 import com.mojang.logging.LogUtils;
+import net.glad0s.baubledetector.block.ModBlocks;
+import net.glad0s.baubledetector.item.ModItems;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -23,7 +25,10 @@ public class BaubleDetector
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModItems.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
+        ModBlocks.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
