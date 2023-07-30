@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.AABB;
 
 
@@ -34,8 +35,6 @@ public class BobberDetectorTileEntity extends BlockEntity {
     private int redstoneTimer = 0;
     private final int REDSTONE_DURATION = 10; //Duration of the redstone pulse
     private boolean powered;
-    private int RANGEFORWARD = 5;
-    private int RANGESIDEWAYS = 3;
 
 
 
@@ -50,18 +49,24 @@ public class BobberDetectorTileEntity extends BlockEntity {
 
     private void bobberScan() {
         if (!level.isClientSide && catchTimer == 0) {
-            BlockPos topCorner = this.worldPosition.offset(RANGE, RANGE, RANGE);
-            BlockPos bottomCorner = this.worldPosition.offset(-RANGE, -RANGE, -RANGE);
-            AABB box = new AABB(topCorner, bottomCorner);
+            //try to get the direction the block is facing
+            BlockState blockstate = this.getBlockState();
+            Direction facing = BobberDetectorBlock.getFacingDirection(blockstate);
+
+            //create the search area
+            BlockPos topCorner = this.worldPosition.relative(facing).relative(facing.getClockWise(), RANGE / 2).offset(0, RANGE / 2,0);
+            BlockPos bottomCorner = this.worldPosition.relative(facing, RANGE).relative(facing.getClockWise().getClockWise().getClockWise(), RANGE / 2).offset(0, -RANGE / 2,0);
+
+            AABB box = new AABB(bottomCorner).minmax(new AABB(topCorner));
 
             List<net.minecraft.world.entity.Entity> entities = this.level.getEntities(null, box);
             for (Entity target : entities) {
                 if (target.getType() == EntityType.FISHING_BOBBER) {
+
                     double x = Math.round((target.getDeltaMovement().x * 100) * 10) / 10.0;
                     double y = target.getDeltaMovement().y;
                     double z = Math.round((target.getDeltaMovement().z * 100) * 10) / 10.0;
                     System.out.println("--- " + "X: " + x + "Y: " + y + "Z: " + z + "   " + this.getBlockState());
-
                     if (y < -0.075 && x == 0 && z == 0) {
                             System.out.println("-------------------------------------- Maybe a Catch? -------------------------------------- " + redstoneTimer);
                             catchTimer = CATCHCOOLDOWN;

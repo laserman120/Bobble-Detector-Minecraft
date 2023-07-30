@@ -59,7 +59,9 @@ public class BobberDetectorBlock extends Block implements EntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
         return type == TileEntityInit.BOBBER_DETECTOR.get() ? BobberDetectorTileEntity::tick : null;
     }
-
+    public static Direction getFacingDirection(BlockState state) {
+        return state.getValue(FACING);
+    }
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
