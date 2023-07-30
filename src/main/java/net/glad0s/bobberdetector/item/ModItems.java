@@ -1,6 +1,6 @@
-package net.glad0s.baubledetector.item;
+package net.glad0s.bobberdetector.item;
 
-import net.glad0s.baubledetector.BaubleDetector;
+import net.glad0s.bobberdetector.BobberDetector;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
-            DeferredRegister.create(ForgeRegistries.ITEMS, BaubleDetector.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.ITEMS, BobberDetector.MOD_ID);
 
     public static final RegistryObject<Item> ZIRCON = ITEMS.register("zircon",
             () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "baubledetector:item/zircon"
+    "layer0": "bobberdetector:item/zircon"
   }
 }

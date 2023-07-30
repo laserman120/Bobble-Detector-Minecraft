@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "bobberdetector:block/bobber_detector",
+    "side": "bobberdetector:block/bobber_detector",
+    "front": "minecraft:block/observer"
+  }
+}
