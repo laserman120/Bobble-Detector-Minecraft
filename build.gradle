@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '0.0.1-1.19.2'
+version = '0.1.0-1.19.2'
 group = 'net.glad0s.bobberdetector' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'bobberdetector'
 
@@ -149,11 +149,11 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "bobberdetector",
-                "Specification-Vendor"    : "bobberdetectorsareus",
+                "Specification-Vendor"    : "bobberdetector",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "bobberdetectorsareus",
+                "Implementation-Vendor"   : "bobberdetector",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

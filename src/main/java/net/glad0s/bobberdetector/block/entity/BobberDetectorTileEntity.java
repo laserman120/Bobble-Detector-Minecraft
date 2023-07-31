@@ -83,9 +83,7 @@ public class BobberDetectorTileEntity extends BlockEntity {
                     double x = Math.round((target.getDeltaMovement().x * 100) * 10) / 10.0;
                     double y = target.getDeltaMovement().y;
                     double z = Math.round((target.getDeltaMovement().z * 100) * 10) / 10.0;
-                    System.out.println(this.getBlockState() + "  " + litRefreshTimer);
                     if (y < -0.075 && x == 0 && z == 0) {
-                            System.out.println("-------------------------------------- Maybe a Catch? -------------------------------------- " + redstoneTimer);
                             catchTimer = CATCHCOOLDOWN;
                             redstoneTimer = REDSTONE_DURATION;
                             updatePower(true);

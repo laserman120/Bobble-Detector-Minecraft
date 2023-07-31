@@ -23,7 +23,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> BOBBER_DETECTOR = registerBlock("bobber_detector",
             () -> new BobberDetectorBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .lightLevel(state -> state.getValue(BobberDetectorBlock.LIT) ? 5 : 0)
-                    ), CreativeModeTab.TAB_MISC);
+                    ), CreativeModeTab.TAB_REDSTONE);
 
     private  static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
