@@ -1,7 +1,7 @@
 # Bobble-Detector-Minecraft
 A bobble detector for Minecraft Forge 1.19.2.
 
-Adds a simple block that detects when a fish is cought and outputs a redstone signal. 
+Adds a simple block that detects when a fish is caught and outputs a redstone signal. 
 
 It does not include a crafting recipe, you can add one with CraftTweaker or KubeJS.
 
