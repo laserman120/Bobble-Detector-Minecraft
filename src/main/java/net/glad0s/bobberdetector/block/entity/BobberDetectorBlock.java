@@ -22,11 +22,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class BobberDetectorBlock extends Block implements EntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public BobberDetectorBlock(final Properties properties){
         super(Properties.copy(Blocks.STONE));
         this.registerDefaultState(this.defaultBlockState().setValue(POWERED, false));
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.defaultBlockState().setValue(LIT, false));
     }
 
     public static void setPowered(BlockState state, Level level, BlockPos pos, boolean powered) {
@@ -35,10 +37,17 @@ public class BobberDetectorBlock extends Block implements EntityBlock {
         }
     }
 
+    public static void setLit(BlockState state, Level level, BlockPos pos, boolean lit) {
+        if (!level.isClientSide) {
+            level.setBlock(pos, state.setValue(LIT, lit), 3);
+        }
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(POWERED);
         builder.add(FACING);
+        builder.add(LIT);
     }
     @Override
     public boolean isSignalSource(BlockState state) {

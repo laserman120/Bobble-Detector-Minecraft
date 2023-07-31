@@ -9,7 +9,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.AABB;
 
 
@@ -34,7 +33,10 @@ public class BobberDetectorTileEntity extends BlockEntity {
     final int CATCHCOOLDOWN = 20; //Ticks until the next detection can take place
     private int redstoneTimer = 0;
     private final int REDSTONE_DURATION = 10; //Duration of the redstone pulse
+    private int litRefreshTimer = 0;
+    private final int LIT_RESET_TIME = 5; //how much time will pass before a missing bobber is noticed
     private boolean powered;
+    private boolean lit;
 
 
 
@@ -44,6 +46,15 @@ public class BobberDetectorTileEntity extends BlockEntity {
         if(block instanceof BobberDetectorBlock){
             this.powered = powered;
             BobberDetectorBlock.setPowered(blockstate, this.level, this.worldPosition, powered);
+        }
+    }
+
+    private void updateLit(boolean lit){
+        BlockState blockstate = this.getBlockState();
+        Block block = blockstate.getBlock();
+        if(block instanceof BobberDetectorBlock){
+            this.lit = lit;
+            BobberDetectorBlock.setLit(blockstate, this.level, this.worldPosition, lit);
         }
     }
 
@@ -60,13 +71,19 @@ public class BobberDetectorTileEntity extends BlockEntity {
             AABB box = new AABB(bottomCorner).minmax(new AABB(topCorner));
 
             List<net.minecraft.world.entity.Entity> entities = this.level.getEntities(null, box);
+
             for (Entity target : entities) {
                 if (target.getType() == EntityType.FISHING_BOBBER) {
-
+                    //set the block to lit if the timer is at 0
+                    if(litRefreshTimer == 0){
+                        updateLit(true);
+                    }
+                    //reset the timer each time it detects it.
+                    litRefreshTimer = LIT_RESET_TIME;
                     double x = Math.round((target.getDeltaMovement().x * 100) * 10) / 10.0;
                     double y = target.getDeltaMovement().y;
                     double z = Math.round((target.getDeltaMovement().z * 100) * 10) / 10.0;
-                    System.out.println("--- " + "X: " + x + "Y: " + y + "Z: " + z + "   " + this.getBlockState());
+                    System.out.println(this.getBlockState() + "  " + litRefreshTimer);
                     if (y < -0.075 && x == 0 && z == 0) {
                             System.out.println("-------------------------------------- Maybe a Catch? -------------------------------------- " + redstoneTimer);
                             catchTimer = CATCHCOOLDOWN;
@@ -90,5 +107,12 @@ public class BobberDetectorTileEntity extends BlockEntity {
         if (catchTimer > 0) {
             catchTimer--;
         }
+        if(litRefreshTimer > 0) {
+            litRefreshTimer--;
+            if (litRefreshTimer == 0){
+                updateLit(false);
+            }
+        }
+
     }
 }

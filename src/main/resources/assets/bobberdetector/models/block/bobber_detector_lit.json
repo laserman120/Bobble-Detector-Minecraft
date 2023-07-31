@@ -1,9 +1,9 @@
 {
   "parent": "minecraft:block/orientable",
   "textures": {
-    "top": "bobberdetector:block/observer_top",
+    "top": "bobberdetector:block/observer_top_lit",
     "side": "bobberdetector:block/observer_box",
     "front": "bobberdetector:block/observer_indicator",
-    "bottom": "bobberdetector:block/observer_top"
+    "bottom": "bobberdetector:block/observer_top_lit"
   }
 }
