@@ -1,5 +1,3 @@
 {
-  "item.bobberdetector.zircon": "Zircon",
-
-  "block.bobberdetector.zircon_block": "Block of Zircon"
+  "block.bobberdetector.bobber_detector": "Bobber Detector"
 }
