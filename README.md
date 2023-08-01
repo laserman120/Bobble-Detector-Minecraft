@@ -1,5 +1,5 @@
-# Bobble-Detector-Minecraft
-A bobble detector for Minecraft Forge 1.19.2.
+# Bobber-Detector-Minecraft
+A bobber detector for Minecraft Forge 1.19.2.
 
 Adds a simple block that detects when a fish is caught and outputs a redstone signal. 
 Additionally the block lights up at the top and bottom whenever a bobber is detected in the search area.
