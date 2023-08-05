@@ -96,9 +96,7 @@ public class BobberDetectorTileEntity extends BlockEntity {
         if (redstoneTimer > 0) {
             redstoneTimer--;
             if (redstoneTimer == 0) {
-                System.out.println(" redstone off " + redstoneTimer);
                 updatePower(false);
-
             }
         }
 
