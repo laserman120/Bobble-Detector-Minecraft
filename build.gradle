@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '0.1.4-1.19.2'
+version = '0.1.5-1.19.2'
 group = 'net.glad0s.bobberdetector' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'bobberdetector'
 
@@ -49,7 +49,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'baubledetector'
+            property 'forge.enabledGameTestNamespaces', 'bobberdetector'
 
             mods {
                 bobberdetector {
@@ -65,10 +65,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'baubledetector'
+            property 'forge.enabledGameTestNamespaces', 'bobberdetector'
 
             mods {
-                baubledetector {
+                bobberdetector {
                     source sourceSets.main
                 }
             }
@@ -84,10 +84,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'baubledetector'
+            property 'forge.enabledGameTestNamespaces', 'bobberdetector'
 
             mods {
-                baubledetector {
+                bobberdetector {
                     source sourceSets.main
                 }
             }
@@ -123,6 +123,13 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+
+   maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {

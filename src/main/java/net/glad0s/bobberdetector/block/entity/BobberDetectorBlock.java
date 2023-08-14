@@ -23,9 +23,11 @@ import org.jetbrains.annotations.Nullable;
 public class BobberDetectorBlock extends Block implements EntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    private final int maxRange;
 
-    public BobberDetectorBlock(final Properties properties){
+    public BobberDetectorBlock(final Properties properties, int maxRange){
         super(Properties.copy(Blocks.STONE));
+        this.maxRange = maxRange;
         this.registerDefaultState(this.defaultBlockState().setValue(POWERED, false));
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
         this.registerDefaultState(this.defaultBlockState().setValue(LIT, false));
@@ -60,6 +62,7 @@ public class BobberDetectorBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+
         return TileEntityInit.BOBBER_DETECTOR.get().create(blockPos, blockState);
     }
 

@@ -3,8 +3,10 @@ package net.glad0s.bobberdetector.block.entity;
 import net.glad0s.bobberdetector.block.TileEntityInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,7 +30,10 @@ public class BobberDetectorTileEntity extends BlockEntity {
         }
     }
 
-    final int RANGE = 5;
+
+    private int RANGE_UP = 5;
+    private int RANGE_SIDE = 5;
+    private int RANGE_FRONT = 5;
     private int catchTimer = 0;
     final int CATCHCOOLDOWN = 20; //Ticks until the next detection can take place
     private int redstoneTimer = 0;
@@ -37,7 +42,6 @@ public class BobberDetectorTileEntity extends BlockEntity {
     private final int LIT_RESET_TIME = 5; //how much time will pass before a missing bobber is noticed
     private boolean powered;
     private boolean lit;
-
 
 
     private void updatePower(boolean powered){
@@ -65,15 +69,19 @@ public class BobberDetectorTileEntity extends BlockEntity {
             Direction facing = BobberDetectorBlock.getFacingDirection(blockstate);
 
             //create the search area
-            BlockPos topCorner = this.worldPosition.relative(facing).relative(facing.getClockWise(), RANGE / 2).offset(0, RANGE / 2,0);
-            BlockPos bottomCorner = this.worldPosition.relative(facing, RANGE).relative(facing.getClockWise().getClockWise().getClockWise(), RANGE / 2).offset(0, -RANGE / 2,0);
+            BlockPos topCorner = this.worldPosition.relative(facing).relative(facing.getClockWise(), RANGE_SIDE / 2).offset(0, RANGE_UP / 2,0);
+            BlockPos bottomCorner = this.worldPosition.relative(facing, RANGE_FRONT).relative(facing.getClockWise().getClockWise().getClockWise(), RANGE_SIDE / 2).offset(0, -RANGE_UP / 2,0);
 
             AABB box = new AABB(bottomCorner).minmax(new AABB(topCorner));
 
             List<net.minecraft.world.entity.Entity> entities = this.level.getEntities(null, box);
 
             for (Entity target : entities) {
-                if (target.getType() == EntityType.FISHING_BOBBER) {
+
+                String entityName = target.getName().getString().toLowerCase().trim();
+
+                if(entityName.contains("bobber") && target.isAlive() && target.getType() != EntityType.ITEM ) {
+
                     //set the block to lit if the timer is at 0
                     if(litRefreshTimer == 0){
                         updateLit(true);
@@ -84,10 +92,11 @@ public class BobberDetectorTileEntity extends BlockEntity {
                     double y = target.getDeltaMovement().y;
                     double z = Math.round((target.getDeltaMovement().z * 100) * 10) / 10.0;
                     if (y < -0.075 && x == 0 && z == 0) {
-                            catchTimer = CATCHCOOLDOWN;
-                            redstoneTimer = REDSTONE_DURATION;
-                            updatePower(true);
-                            level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
+                        catchTimer = CATCHCOOLDOWN;
+                        redstoneTimer = REDSTONE_DURATION;
+                        updatePower(true);
+                        level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
+
                     }
                 }
             }

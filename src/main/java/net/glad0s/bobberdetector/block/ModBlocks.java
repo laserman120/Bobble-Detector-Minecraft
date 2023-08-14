@@ -20,10 +20,11 @@ public class ModBlocks {
     public  static  final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, BobberDetector.MOD_ID);
 
+    private static int maxRange;
     public static final RegistryObject<Block> BOBBER_DETECTOR = registerBlock("bobber_detector",
             () -> new BobberDetectorBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .lightLevel(state -> state.getValue(BobberDetectorBlock.LIT) ? 5 : 0)
-                    ), CreativeModeTab.TAB_REDSTONE);
+                    .lightLevel(state -> state.getValue(BobberDetectorBlock.LIT) ? 5 : 0),
+                    maxRange), CreativeModeTab.TAB_REDSTONE);
 
     private  static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
