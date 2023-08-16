@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -78,9 +79,11 @@ public class BobberDetectorTileEntity extends BlockEntity {
 
             for (Entity target : entities) {
 
-                String entityName = target.getName().getString().toLowerCase().trim();
+                String entityName = target.toString().toLowerCase().trim();
 
-                if(entityName.contains("bobber") && target.isAlive() && target.getType() != EntityType.ITEM ) {
+                System.out.println(target.toString());
+
+                if(entityName.contains("bobber") && target.isAlive() && target.getType() != EntityType.ITEM|| entityName.contains("fishinghook") && target.isAlive() && target.getType() != EntityType.ITEM) {
 
                     //set the block to lit if the timer is at 0
                     if(litRefreshTimer == 0){
