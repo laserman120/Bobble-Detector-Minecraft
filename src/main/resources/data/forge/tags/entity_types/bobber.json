@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:fishing_bobber",
+    {
+      "id": "netherdepthsupgrade:lava_fishing_bobber",
+      "required": false
+    }
+  ]
+}

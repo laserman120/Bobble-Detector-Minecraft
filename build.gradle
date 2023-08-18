@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '0.1.5-1.19.2'
+version = '0.1.7-1.19.2'
 group = 'net.glad0s.bobberdetector' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'bobberdetector'
 
@@ -138,7 +138,14 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.19.2-43.2.0'
 
+    // Include Nether Depths Upgrade and Geckolib for testing
+
+    //implementation fg.deobf("curse.maven:lavastuff-670011:4690805")
+    //implementation fg.deobf("curse.maven:geckolib-388172:4407241")
+
     // Real mod deobf dependency examples - these get remapped to your current mappings
+
+
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency

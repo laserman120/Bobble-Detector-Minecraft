@@ -13,9 +13,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.registries.ForgeRegistries;
 
 
 import java.util.List;
+
+import static net.glad0s.bobberdetector.BobberDetector.ClientModEvents.BobberTag;
 
 public class BobberDetectorTileEntity extends BlockEntity {
     public BobberDetectorTileEntity(BlockPos pos, BlockState state) {
@@ -79,11 +82,9 @@ public class BobberDetectorTileEntity extends BlockEntity {
 
             for (Entity target : entities) {
 
-                String entityName = target.toString().toLowerCase().trim();
+                boolean isInTag = ForgeRegistries.ENTITY_TYPES.tags().getTag(BobberTag).contains(target.getType());
 
-                System.out.println(target.toString());
-
-                if(entityName.contains("bobber") && target.isAlive() && target.getType() != EntityType.ITEM|| entityName.contains("fishinghook") && target.isAlive() && target.getType() != EntityType.ITEM) {
+                if(isInTag) {
 
                     //set the block to lit if the timer is at 0
                     if(litRefreshTimer == 0){

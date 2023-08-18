@@ -3,6 +3,9 @@ package net.glad0s.bobberdetector.block;
 import net.glad0s.bobberdetector.BobberDetector;
 import net.glad0s.bobberdetector.block.entity.BobberDetectorBlock;
 import net.glad0s.bobberdetector.item.ModItems;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -39,4 +42,6 @@ public class ModBlocks {
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
     }
+
+
 }
