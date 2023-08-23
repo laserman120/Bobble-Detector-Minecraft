@@ -4,23 +4,26 @@ import net.glad0s.bobberdetector.block.TileEntityInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 
 import java.util.List;
 
 import static net.glad0s.bobberdetector.BobberDetector.ClientModEvents.BobberTag;
 
-public class BobberDetectorTileEntity extends BlockEntity {
+public class BobberDetectorTileEntity extends BlockEntity /*implements MenuProvider*/ {
     public BobberDetectorTileEntity(BlockPos pos, BlockState state) {
         super(TileEntityInit.BOBBER_DETECTOR.get(), pos, state);
     }
@@ -124,4 +127,34 @@ public class BobberDetectorTileEntity extends BlockEntity {
         }
 
     }
+
+    /*
+    @Override
+    public Component getDisplayName() {
+        return Component.literal("Bobber Detector");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+        return
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag nbt){
+        nbt.putInt("RANGE_FRONT", RANGE_FRONT);
+        nbt.putInt("RANGE_SIDE", RANGE_SIDE);
+        nbt.putInt("RANGE_UP", RANGE_UP);
+        super.saveAdditional(nbt);
+    }
+
+    @Override
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
+        nbt.getInt("RANGE_FRONT");
+        nbt.getInt("RANGE_SIDE");
+        nbt.getInt("RANGE_UP");
+    }
+    */
+
 }

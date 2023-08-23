@@ -48,11 +48,24 @@ Easily find a nearby, maybe even invisible fishing bobble and output a redstone 
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 # Here's another dependency
-[[dependencies.examplemod]]
-    modId="examplemod"
-    mandatory=false
+[[dependencies.bobberdetector]]
+modId = "forge"
+mandatory = true
+versionRange="[43.0.0,)"
+ordering = "NONE"
+side = "BOTH"
 
-# This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.19.2)"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.bobberdetector]]
+modId = "minecraft"
+mandatory = true
+versionRange="[1.19.2]"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.bobberdetector]]
+modId="create"
+mandatory=false
+versionRange="[0.5.1.c,)"
+ordering="NONE"
+side="BOTH"
+
