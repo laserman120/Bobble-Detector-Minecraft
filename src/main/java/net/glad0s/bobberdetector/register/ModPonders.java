@@ -15,6 +15,7 @@ public class ModPonders {
 
         HELPER.addStoryBoard(ModBlocks.BOBBER_DETECTOR.getId(), "bobber_detector_ponder", PonderScenes::bobberBasic, AllPonderTags.REDSTONE);
 
-        PonderRegistry.TAGS.forTag(AllPonderTags.REDSTONE).add(ModBlocks.BOBBER_DETECTOR.getId());
+        PonderRegistry.TAGS.forTag(AllPonderTags.REDSTONE)
+                .add(ModBlocks.BOBBER_DETECTOR.getId());
     }
 }

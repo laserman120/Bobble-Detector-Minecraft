@@ -50,6 +50,8 @@ public class BobberDetector
         modEventBus.addListener(this::doClientStuff);
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        generateLangEntries();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -75,4 +77,19 @@ public class BobberDetector
         public static final TagKey<EntityType<?>> BobberTag = ForgeRegistries.ENTITY_TYPES.tags().createTagKey(new ResourceLocation("forge", "bobber"));
 
     }
+
+    private void generateLangEntries(){
+
+        registrate().addRawLang("bobberdetector.ponder.detector.header", "Automatic Fishing");
+        registrate().addRawLang("bobberdetector.ponder.detector.text_1", "temp 1");
+        registrate().addRawLang("bobberdetector.ponder.detector.text_2", "temp 2");
+        registrate().addRawLang("bobberdetector.ponder.detector.text_3", "temp 3");
+        registrate().addRawLang("bobberdetector.ponder.detector.text_4", "temp 4");
+
+    }
+
+    public static ResourceLocation asResource(String path) {
+        return new ResourceLocation(MOD_ID, path);
+    }
+
 }

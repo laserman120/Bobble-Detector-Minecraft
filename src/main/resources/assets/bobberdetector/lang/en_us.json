@@ -1,3 +1,8 @@
 {
-  "block.bobberdetector.bobber_detector": "Bobber Detector"
+  "block.bobberdetector.bobber_detector": "Bobber Detector",
+  "bobberdetector.ponder.detector.header": "Automatic Fishing",
+  "bobberdetector.ponder.detector.text_1": "temp 1",
+  "bobberdetector.ponder.detector.text_2": "temp 2",
+  "bobberdetector.ponder.detector.text_3": "temp 3",
+  "bobberdetector.ponder.detector.text_4": "temp 4"
 }
