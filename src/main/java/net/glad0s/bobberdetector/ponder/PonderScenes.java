@@ -8,6 +8,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 
+//A 100% stolen ponder screen that will probably not work at all, but its here for testing. Will be rewritten completely once everything else works as intended
+
 public class PonderScenes {
     public static void bobberBasic(SceneBuilder scene, SceneBuildingUtil util) {
         scene.title("bobberdetector", "Automatic Fishing");
