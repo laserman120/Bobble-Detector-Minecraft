@@ -1,8 +1,6 @@
 package net.glad0s.bobberdetector.block.entity;
 
 import com.simibubi.create.foundation.outliner.AABBOutline;
-import com.simibubi.create.foundation.outliner.Outline;
-import com.simibubi.create.foundation.outliner.Outliner;
 import net.glad0s.bobberdetector.block.TileEntityInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,6 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 
 import static net.glad0s.bobberdetector.BobberDetector.ClientModEvents.BobberTag;
+
 
 public class BobberDetectorTileEntity extends BlockEntity /*implements MenuProvider*/ {
     public BobberDetectorTileEntity(BlockPos pos, BlockState state) {
@@ -48,6 +47,7 @@ public class BobberDetectorTileEntity extends BlockEntity /*implements MenuProvi
     boolean isBiting = false;
     private boolean powered;
     private boolean lit;
+    private AABBOutline outline;
 
 
     private void updatePower(boolean powered){
@@ -68,6 +68,17 @@ public class BobberDetectorTileEntity extends BlockEntity /*implements MenuProvi
         }
     }
 
+    public AABB getAffectedArea(){
+
+        BlockState blockstate = this.getBlockState();
+        Direction facing = BobberDetectorBlock.getFacingDirection(blockstate);
+
+        BlockPos topCorner = this.worldPosition.relative(facing).relative(facing.getClockWise(), RANGE_SIDE / 2).offset(0, RANGE_UP / 2,0);
+        BlockPos bottomCorner = this.worldPosition.relative(facing, RANGE_FRONT).relative(facing.getClockWise().getClockWise().getClockWise(), RANGE_SIDE / 2).offset(0, -RANGE_UP / 2,0);
+
+        AABB box = new AABB(bottomCorner).minmax(new AABB(topCorner));
+        return box;
+    }
     private void bobberScan() {
         if (!level.isClientSide && catchTimer == 0) {
             //try to get the direction the block is facing
