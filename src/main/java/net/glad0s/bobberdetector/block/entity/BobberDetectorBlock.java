@@ -3,6 +3,10 @@ package net.glad0s.bobberdetector.block.entity;
 import net.glad0s.bobberdetector.block.TileEntityInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,7 +22,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import org.jetbrains.annotations.Nullable;
 
 public class BobberDetectorBlock extends Block implements EntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -59,14 +62,14 @@ public class BobberDetectorBlock extends Block implements EntityBlock {
     public int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
         return blockState.getValue(POWERED) ? 15 : 0;
     }
-    @Nullable
+
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
 
         return TileEntityInit.BOBBER_DETECTOR.get().create(blockPos, blockState);
     }
 
-    @Nullable
+
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
         return type == TileEntityInit.BOBBER_DETECTOR.get() ? BobberDetectorTileEntity::tick : null;
@@ -81,4 +84,33 @@ public class BobberDetectorBlock extends Block implements EntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context){
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection());
     }
+
+    //detect when the player is looking at the block
+
+
+
+
+
+
+
+
+    /*@Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+        if (!pLevel.isClientSide()){
+            BlockEntity entity = pLevel.getBlockEntity(pPos);
+            if(entity instanceof BobberDetectorTileEntity) {
+                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (BobberDetectorTileEntity)entity, pPos);
+             } else {
+                throw new IllegalStateException("The Container Provider is missing - Bobber Detector");
+            }
+        }
+
+        return InteractionResult.sidedSuccess(pLevel.isClientSide());
+    }
+    */
+
+
+
+
+
 }

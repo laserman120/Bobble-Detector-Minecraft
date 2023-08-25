@@ -31,7 +31,7 @@
       "y": 270
     },
     "facing=east,powered=false,lit=true": {
-      "model":  "bobberdetector:block/bobber_detector",
+      "model":  "bobberdetector:block/bobber_detector_lit",
       "y": 90
     },
     "facing=north,powered=false,lit=true": {
