@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
     "pattern": [
         "AFA",
-        "RFR",
+        "R#R",
         "ARA"
     ],
     "key": {
