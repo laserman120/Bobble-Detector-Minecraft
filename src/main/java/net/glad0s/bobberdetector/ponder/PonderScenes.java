@@ -34,7 +34,7 @@ public class PonderScenes {
         BlockPos link2 = util.grid.at(1,2,0);
         BlockPos redstoneTorch = util.grid.at(1,1,1);
         BlockPos redstoneRepeater = util.grid.at(1,1,2);
-        BlockPos searchArea1 = util.grid.at(4,0,1);
+        BlockPos searchArea1 = util.grid.at(4,-2,1);
         BlockPos searchArea2 = util.grid.at(0,2,5);
         BlockPos smallCogwheel = util.grid.at(2,0,7);
 

@@ -1,22 +1,19 @@
 package net.glad0s.bobberdetector.block.entity;
 
+import com.simibubi.create.foundation.outliner.AABBOutline;
+import com.simibubi.create.foundation.outliner.Outline;
+import com.simibubi.create.foundation.outliner.Outliner;
 import net.glad0s.bobberdetector.block.TileEntityInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.Nullable;
 
 
 import java.util.List;
@@ -47,6 +44,8 @@ public class BobberDetectorTileEntity extends BlockEntity /*implements MenuProvi
     private final int REDSTONE_DURATION = 10; //Duration of the redstone pulse
     private int litRefreshTimer = 0;
     private final int LIT_RESET_TIME = 5; //how much time will pass before a missing bobber is noticed
+    private final int FIRST_DETECTION_COOLDOWN = 20; //Ticks until the first detection can take place
+    boolean isBiting = false;
     private boolean powered;
     private boolean lit;
 
@@ -73,6 +72,9 @@ public class BobberDetectorTileEntity extends BlockEntity /*implements MenuProvi
         if (!level.isClientSide && catchTimer == 0) {
             //try to get the direction the block is facing
             BlockState blockstate = this.getBlockState();
+
+            //Something is wrong with south. Figure that out please
+
             Direction facing = BobberDetectorBlock.getFacingDirection(blockstate);
 
             //create the search area
@@ -85,24 +87,46 @@ public class BobberDetectorTileEntity extends BlockEntity /*implements MenuProvi
 
             for (Entity target : entities) {
 
+
                 boolean isInTag = ForgeRegistries.ENTITY_TYPES.tags().getTag(BobberTag).contains(target.getType());
 
                 if(isInTag) {
 
-                    //set the block to lit if the timer is at 0
-                    if(litRefreshTimer == 0){
-                        updateLit(true);
+                    if(target instanceof FishingHook){
+                       isBiting = ((FishingHook) target).biting;
                     }
-                    //reset the timer each time it detects it.
-                    litRefreshTimer = LIT_RESET_TIME;
-                    double x = Math.round((target.getDeltaMovement().x * 100) * 10) / 10.0;
-                    double y = target.getDeltaMovement().y;
-                    double z = Math.round((target.getDeltaMovement().z * 100) * 10) / 10.0;
-                    if (y < -0.075 && x == 0 && z == 0) {
-                        catchTimer = CATCHCOOLDOWN;
-                        redstoneTimer = REDSTONE_DURATION;
-                        updatePower(true);
-                        level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
+
+                    //check if there is a fluid 0.2 blocks below the bobber
+                    double belowBobber = target.getY() - 0.2;
+                    belowBobber = Math.round(belowBobber * 100) / 100.0;
+                    BlockPos fluidCheck = new BlockPos(target.getX(), belowBobber, target.getZ());
+
+                    boolean isInFluid = !level.getFluidState(fluidCheck).isEmpty();
+
+                    //is the bobber floating in a fluid?
+                    if(isInFluid){
+
+                    //set the block to lit if the timer is at 0
+                        if(litRefreshTimer == 0){
+                            updateLit(true);
+                        }
+
+                        //reset the timer each time it detects it.
+                        litRefreshTimer = LIT_RESET_TIME;
+
+                        double x = Math.round((target.getDeltaMovement().x * 100) * 10) / 10.0;
+                        double y = target.getDeltaMovement().y;
+                        double z = Math.round((target.getDeltaMovement().z * 100) * 10) / 10.0;
+
+                        if (!(target instanceof FishingHook) && y < -0.075 && x == 0 && z == 0
+                                || target instanceof FishingHook && isBiting) {
+
+
+                            catchTimer = CATCHCOOLDOWN;
+                            redstoneTimer = REDSTONE_DURATION;
+                            updatePower(true);
+                            level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
+                        }
 
                     }
                 }
