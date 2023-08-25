@@ -46,6 +46,7 @@ Made for the Create: Automate Everything modpack.
 
 Easily find a nearby, maybe even invisible fishing bobble and output a redstone signal if it catches something.
 '''
+
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 # Here's another dependency
 [[dependencies.bobberdetector]]
