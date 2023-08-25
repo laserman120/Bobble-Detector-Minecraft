@@ -85,6 +85,13 @@ public class BobberDetectorBlock extends Block implements EntityBlock {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection());
     }
 
+    //detect when the player is looking at the block
+
+
+
+
+
+
 
 
     /*@Override
@@ -101,6 +108,8 @@ public class BobberDetectorBlock extends Block implements EntityBlock {
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
     */
+
+
 
 
 
