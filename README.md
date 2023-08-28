@@ -5,7 +5,7 @@ Adds a simple block that detects when a fish is caught and outputs a redstone si
 Additionally the block lights up at the top and bottom whenever a bobber is detected in the search area.
 The search area is a 5x5x5 cube in front of the block.
 
-It does not include a crafting recipe, but you can add one with CraftTweaker or KubeJS.
+Requires create 0.5.1.a or higher
 
 Created to be used together with Create's deployer to create automatic fish farms.
 
