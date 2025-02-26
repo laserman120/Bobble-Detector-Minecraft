@@ -1,0 +1,10 @@
+{
+  "block.bobberdetector.bobber_detector": "浮き探知機",
+  "bobberdetector.ponder.detector.header": "自動釣り",
+  "creativetab.bobber_detector_tab": "自動釣り",
+  "bobberdetector.ponder.detector.text_1": "デプロイヤーに釣り竿を与えて釣りをしてもらうことができます",
+  "bobberdetector.ponder.detector.text_2": "残念ながら、水中で釣り浮きを見ることはできず、粒子だけが見えます",
+  "bobberdetector.ponder.detector.text_3": "しかし、浮きが範囲内に入ると必ず浮き探知機が点灯します",
+  "bobberdetector.ponder.detector.text_4": "魚が捕獲されると、探知機はレッドストーン信号を発します",
+  "bobberdetector.ponder.detector.text_5": "ただし、アイテムの受け取り方法を理解する必要があります"
+}
